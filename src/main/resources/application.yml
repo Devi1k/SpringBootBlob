@@ -6,4 +6,4 @@ spring:
     driver-class-name: com.mysql.cj.jdbc.Driver
     name: demo
 mybatis:
-  mapper-locations: classpath:mapper/*Dao
+  mapper-locations: classpath:mapper/*Dao.xml
