@@ -5,38 +5,50 @@ import com.fasterxml.jackson.annotation.JsonFormat;
 import java.io.Serializable;
 import java.util.Date;
 
+/**
+ * @author 13
+ * @qq交流群 796794009
+ * @email 2449207463@qq.com
+ * @link http:13blog.site
+ */
 public class AdminUser implements Serializable {
+
     /**
-     * primary key
+     * 主键
      */
-    private long id;
+    private Long id;
+
     /**
-     * user_name
+     * 用户名
      */
     private String userName;
+
     /**
-     * password
+     * 密码
      */
     private String password;
+
     /**
-     * token
+     * token值
      */
     private String userToken;
+
     /**
-     * deleted or not
+     * 是否已删除 0未删除 1已删除
      */
     private int isDeleted;
+
     /**
-     * created time
+     * 添加时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
-    private Date createdTime;
+    private Date createTime;
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -72,14 +84,13 @@ public class AdminUser implements Serializable {
         this.isDeleted = isDeleted;
     }
 
-    public Date getCreatedTime() {
-        return createdTime;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreatedTime(Date createdTime) {
-        this.createdTime = createdTime;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
-
 
     @Override
     public String toString() {
@@ -89,7 +100,7 @@ public class AdminUser implements Serializable {
                 ", password='" + password + '\'' +
                 ", userToken='" + userToken + '\'' +
                 ", isDeleted=" + isDeleted +
-                ", createdTime=" + createdTime +
+                ", createTime=" + createTime +
                 '}';
     }
 }

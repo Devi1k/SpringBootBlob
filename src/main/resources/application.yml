@@ -5,3 +5,5 @@ spring:
     password: qwer1234.333
     driver-class-name: com.mysql.cj.jdbc.Driver
     name: demo
+mybatis:
+  mapper-locations: classpath:mapper/*Dao
