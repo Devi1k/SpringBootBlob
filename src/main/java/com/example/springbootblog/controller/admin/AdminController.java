@@ -4,10 +4,7 @@ import com.example.springbootblog.entity.AdminUser;
 import com.example.springbootblog.service.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -15,7 +12,7 @@ import javax.servlet.http.HttpSession;
 
 @Controller
 @RequestMapping("/admin")
-public class AdminUserControler {
+public class AdminController {
 
     @Resource
     private AdminUserService adminUserService;
@@ -36,6 +33,7 @@ public class AdminUserControler {
         return "admin/login";
     }
 
+    @GetMapping({"", "/", "/index", "/index.html"})
     public String index(HttpServletRequest request) {
         request.setAttribute("path", "index");
         request.setAttribute("categoryCount", categoryService.getTotalCategories());
@@ -74,7 +72,61 @@ public class AdminUserControler {
             return "admin/login";
         }
 
-
     }
 
+    @GetMapping("profile")
+    public String profile(HttpServletRequest request) {
+        Integer userId = (int) request.getSession().getAttribute("loginUserId");
+        AdminUser adminUser = adminUserService.getUserDetailById(userId);
+        if (adminUser == null) {
+            return "admin/login";
+        }
+        request.setAttribute("path", "profile");
+        request.setAttribute("loginUserName", adminUser.getLoginUserName());
+        request.setAttribute("nickName", adminUser.getNickName());
+        return "admin/profile";
+    }
+
+    @PostMapping("/profile/name")
+    @ResponseBody
+    public String updateName(HttpServletRequest request, @RequestParam("loginUserName") String loginUserName,
+                             @RequestParam("nickName") String nickName) {
+        if (StringUtils.isEmpty(loginUserName) || StringUtils.isEmpty(nickName)) {
+            return "参数不能为空";
+        }
+        Integer userId = (int) request.getSession().getAttribute("loginUserId");
+        if (adminUserService.updateUserName(userId, loginUserName, nickName)) {
+            return "success";
+        } else {
+            return "修改失败";
+        }
+    }
+
+
+    @PostMapping("/profile/password")
+    @ResponseBody
+    public String updatePassword(HttpServletRequest request, @RequestParam("originalPassword") String originalPassword,
+                                 @RequestParam("newPassword") String newPassword) {
+        if (StringUtils.isEmpty(originalPassword) || StringUtils.isEmpty(newPassword)) {
+            return "密码不能为空";
+        }
+        Integer userId = (int) request.getSession().getAttribute("loginUserId");
+        if (adminUserService.updatePassword(userId, originalPassword, newPassword)) {
+            request.removeAttribute("loginUserId");
+            request.removeAttribute("loginUser");
+            request.removeAttribute("errorMsg");
+            return "success";
+        } else {
+            return "修改失败";
+        }
+    }
+
+
+    @GetMapping("/logout")
+    public String logout(HttpServletRequest request) {
+        request.removeAttribute("loginUserId");
+        request.removeAttribute("loginUser");
+        request.removeAttribute("errorMsg");
+        return "admin/login";
+    }
 }
