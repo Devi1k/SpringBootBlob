@@ -2,6 +2,6 @@ package com.example.springbootblog.dao;
 
 import java.util.Map;
 
-public interface BlobCommentMapper {
+public interface BlogCommentMapper {
     int getTotalBlogComments(Map map);
 }

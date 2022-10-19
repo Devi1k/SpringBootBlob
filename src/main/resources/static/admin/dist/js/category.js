@@ -127,11 +127,12 @@ function categoryEdit() {
     $("#categoryId").val(id);
 }
 
-function deleteCagegory() {
+function deleteCategory() {
     var ids = getSelectedRows();
     if (ids == null) {
         return;
     }
+    console.log(ids);
     swal({
         title: "确认弹框",
         text: "确认要删除数据吗?",
@@ -139,9 +140,9 @@ function deleteCagegory() {
         buttons: true,
         dangerMode: true,
     }).then((flag) => {
-            if (flag) {
-                $.ajax({
-                    type: "POST",
+        if (flag) {
+            $.ajax({
+                type: "POST",
                     url: "/admin/categories/delete",
                     contentType: "application/json",
                     data: JSON.stringify(ids),

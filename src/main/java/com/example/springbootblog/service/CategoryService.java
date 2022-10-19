@@ -1,5 +1,16 @@
 package com.example.springbootblog.service;
 
+import com.example.springbootblog.utils.PageQueryUtil;
+import com.example.springbootblog.utils.PageResult;
+
 public interface CategoryService {
     int getTotalCategories();
+
+    public PageResult getBlogCategoryPage(PageQueryUtil pageQueryUtil);
+
+    public Boolean saveCategory(String categoryName, String categoryIcon);
+
+    public Boolean deleteBatch(Integer[] ids);
+
+    public Boolean updateCategory(Integer categoryId, String categoryName, String categoryIcon);
 }
