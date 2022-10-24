@@ -87,6 +87,7 @@ $('#confirmButton').click(function () {
     var blogCategoryId = $('#blogCategoryId').val();
     var blogTags = $('#blogTags').val();
     var blogContent = blogEditor.getMarkdown();
+    alert(blogEditor.getMarkdown());
     if (isNull(blogTitle)) {
         swal("请输入文章标题", {
             icon: "error",

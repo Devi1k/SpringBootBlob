@@ -13,7 +13,7 @@ public class MyBlogWebMvcConfigurer implements WebMvcConfigurer {
     private AdminLoginInterceptor adminLoginInterceptor;
 
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/files/**").addResourceLocations("file:/Users/starry/Documents/Upload/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:/Users/starry/Documents/Upload/");
     }
 
 
