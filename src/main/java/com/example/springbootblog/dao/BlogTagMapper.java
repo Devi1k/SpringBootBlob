@@ -18,4 +18,7 @@ public interface BlogTagMapper {
     int deleteBatch(Integer[] ids);
 
     List<BlogTagCount> getTagCount();
+
+
+    int batchInsertBlogTag(List<BlogTag> list);
 }

@@ -64,5 +64,10 @@ public class CategoryServiceImpl implements CategoryService {
         return false;
     }
 
+    @Override
+    public List<BlogCategory> getAllCategories() {
+        return blogCategoryMapper.findCategoryList(null);
+    }
+
 
 }
