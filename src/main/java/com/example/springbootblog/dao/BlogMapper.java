@@ -16,6 +16,6 @@ public interface BlogMapper {
 
     int insertSelective(Blog record);
 
-    int updateByPrimaryKeySelective(Long blogId);
+    int updateByPrimaryKeySelective(Blog blog);
 
 }

@@ -85,8 +85,73 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    @Transactional
     public String updateBlog(Blog blog) {
-        return null;
+        Blog blogForUpdate = blogMapper.selectByPrimaryKey(blog.getBlogId());
+        if (blogForUpdate == null) {
+            return "数据不存在";
+        }
+        blogForUpdate.setBlogTitle(blog.getBlogTitle());
+        blogForUpdate.setBlogSubUrl(blog.getBlogSubUrl());
+        blogForUpdate.setBlogContent(blog.getBlogContent());
+        blogForUpdate.setBlogCoverImage(blog.getBlogCoverImage());
+        blogForUpdate.setBlogStatus(blog.getBlogStatus());
+        blogForUpdate.setEnableComment(blog.getEnableComment());
+
+        BlogCategory blogCategory = categoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
+        if (blogCategory == null) {
+            blogForUpdate.setBlogCategoryId(0);
+            blogForUpdate.setBlogCategoryName("默认分类");
+        } else {
+            blogForUpdate.setBlogCategoryId(blogCategory.getCategoryId());
+            blogForUpdate.setBlogCategoryName(blogCategory.getCategoryName());
+            blogCategory.setCategoryRank(blogCategory.getCategoryRank() + 1);
+        }
+
+        String[] tags = blog.getBlogTags().split(",");
+        if (tags.length > 6) {
+            return "标签限制为6";
+        }
+        blogForUpdate.setBlogTags(blog.getBlogTags());
+
+        List<BlogTag> tagForForInsert = new ArrayList<>();
+        List<BlogTag> allTagsList = new ArrayList<>();
+
+        for (String s : tags) {
+            BlogTag tag = blogTagMapper.selectByTagName(s);
+            if (tag == null) {
+                BlogTag tempTag = new BlogTag();
+                tempTag.setTagName(s);
+                tagForForInsert.add(tempTag);
+            } else {
+                allTagsList.add(tag);
+            }
+        }
+
+        if (!CollectionUtils.isEmpty(tagForForInsert)) {
+            blogTagMapper.batchInsertBlogTag(tagForForInsert);
+        }
+        allTagsList.addAll(tagForForInsert);
+
+        List<BlogTagRelation> blogTagRelations = new ArrayList<>();
+        for (BlogTag tag :
+                allTagsList) {
+            BlogTagRelation blogTagRelation = new BlogTagRelation();
+            blogTagRelation.setTagId(tag.getTagId());
+            blogTagRelation.setBlogId(blog.getBlogId());
+            blogTagRelations.add(blogTagRelation);
+        }
+
+
+        categoryMapper.updateByPrimaryKeySelective(blogCategory);
+
+
+        blogTagRelationMapper.deleteByBlogId(blog.getBlogId());
+        blogTagRelationMapper.batchInsert(blogTagRelations);
+        if (blogMapper.updateByPrimaryKeySelective(blogForUpdate) > 0) {
+            return "success";
+        }
+        return "修改失败";
     }
 
     @Override

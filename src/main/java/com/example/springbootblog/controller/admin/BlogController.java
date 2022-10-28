@@ -185,7 +185,7 @@ public class BlogController {
         blog.setBlogCoverImage(blogCoverImage);
         blog.setBlogStatus(blogStatus);
         blog.setEnableComment(enableComment);
-        String saveResult = blogService.saveBlog(blog);
+        String saveResult = blogService.updateBlog(blog);
         if ("success".equals(saveResult)) {
             return ResultGenerator.genSuccessResult("修改成功");
         } else {
