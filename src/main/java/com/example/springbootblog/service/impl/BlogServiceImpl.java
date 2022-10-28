@@ -68,6 +68,7 @@ public class BlogServiceImpl implements BlogService {
             if (!CollectionUtils.isEmpty(tagListForInsert)) {
                 blogTagMapper.batchInsertBlogTag(tagListForInsert);
             }
+
             List<BlogTagRelation> blogTagRelations = new ArrayList<>();
             allTagList.addAll(tagListForInsert);
             for (BlogTag blogTag : allTagList
@@ -77,9 +78,12 @@ public class BlogServiceImpl implements BlogService {
                 blogTagRelation.setTagId(blogTag.getTagId());
                 blogTagRelations.add(blogTagRelation);
             }
+
             if (blogTagRelationMapper.batchInsert(blogTagRelations) > 0) {
                 return "success";
             }
+            System.out.println("1111111111");
+
         }
         return "保存失败";
     }

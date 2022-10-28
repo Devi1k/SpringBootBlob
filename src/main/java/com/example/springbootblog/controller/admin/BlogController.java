@@ -34,6 +34,12 @@ public class BlogController {
     @Resource
     private CategoryService categoryService;
 
+    @GetMapping("/blogs")
+    public String list(HttpServletRequest request) {
+        request.setAttribute("path", "blogs");
+        return "/admin/blog";
+    }
+
     @GetMapping("/blogs/edit")
     public String edit(HttpServletRequest request) {
         request.setAttribute("path", "edit");
