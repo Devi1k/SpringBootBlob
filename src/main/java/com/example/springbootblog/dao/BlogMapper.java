@@ -5,6 +5,8 @@ import com.example.springbootblog.utils.PageQueryUtil;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
+import java.util.List;
+
 @Mapper
 public interface BlogMapper {
     int getTotalBlogs(PageQueryUtil pageUtil);
@@ -18,4 +20,7 @@ public interface BlogMapper {
 
     int updateByPrimaryKeySelective(Blog blog);
 
+    List<Blog> findBlogList(PageQueryUtil pageQueryUtil);
+
+    int deleteBatch(Integer[] ids);
 }

@@ -5,6 +5,7 @@ import com.example.springbootblog.entity.Blog;
 import com.example.springbootblog.service.BlogService;
 import com.example.springbootblog.service.CategoryService;
 import com.example.springbootblog.utils.MyBlogUtils;
+import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.Result;
 import com.example.springbootblog.utils.ResultGenerator;
 import org.springframework.stereotype.Controller;
@@ -22,6 +23,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Map;
 import java.util.Random;
 
 @Controller
@@ -40,6 +42,16 @@ public class BlogController {
         return "/admin/blog";
     }
 
+    @GetMapping("/blogs/list")
+    @ResponseBody
+    public Result list(@RequestParam Map<String, Object> param) {
+        if (StringUtils.isEmpty(param.get("page")) || StringUtils.isEmpty(param.get("limit"))) {
+            return ResultGenerator.genFailResult("参数异常");
+        }
+        PageQueryUtil pageQueryUtil = new PageQueryUtil(param);
+        return ResultGenerator.genSuccessResult(blogService.getBlogsPage(pageQueryUtil));
+    }
+
     @GetMapping("/blogs/edit")
     public String edit(HttpServletRequest request) {
         request.setAttribute("path", "edit");
@@ -50,6 +62,7 @@ public class BlogController {
     @GetMapping("/blogs/edit/{blogId}")
     public String edit(HttpServletRequest request, @PathVariable("blogId") Long blogId) {
         request.setAttribute("path", "edit");
+        System.out.println(blogId);
         Blog blog = blogService.getBlogById(blogId);
         if (blog == null) {
             return "error/error_400";
@@ -197,6 +210,18 @@ public class BlogController {
         } else {
             return ResultGenerator.genFailResult(saveResult);
         }
+    }
+
+    @PostMapping("/blogs/delete")
+    @ResponseBody
+    public Result delete(@RequestBody Integer[] ids) {
+        if (ids.length < 1) {
+            return ResultGenerator.genFailResult("参数错误");
+        }
+        if (blogService.deleteBatch(ids)) {
+            return ResultGenerator.genSuccessResult();
+        }
+        return ResultGenerator.genFailResult("删除失败");
     }
 
 }

@@ -9,6 +9,8 @@ import com.example.springbootblog.entity.BlogCategory;
 import com.example.springbootblog.entity.BlogTag;
 import com.example.springbootblog.entity.BlogTagRelation;
 import com.example.springbootblog.service.BlogService;
+import com.example.springbootblog.utils.PageQueryUtil;
+import com.example.springbootblog.utils.PageResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
@@ -160,6 +162,22 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public Blog getBlogById(Long blogId) {
-        return null;
+        return blogMapper.selectByPrimaryKey(blogId);
+    }
+
+    @Override
+    public PageResult getBlogsPage(PageQueryUtil pageQueryUtil) {
+        List<Blog> blogList = blogMapper.findBlogList(pageQueryUtil);
+        int total = blogMapper.getTotalBlogs(pageQueryUtil);
+        PageResult pageResult = new PageResult(blogList, total, pageQueryUtil.getLimit(), pageQueryUtil.getPage());
+        return pageResult;
+    }
+
+    @Override
+    public Boolean deleteBatch(Integer[] ids) {
+        if (ids.length < 1) {
+            return false;
+        }
+        return blogMapper.deleteBatch(ids) > 0;
     }
 }
