@@ -49,6 +49,7 @@ public class AdminController {
                         @RequestParam("password") String password,
                         @RequestParam("verifyCode") String verifyCode,
                         HttpSession session) {
+//        System.out.println(password);
         if (StringUtils.isEmpty(verifyCode)) {
             session.setAttribute("errorMsg", "验证码不能为空");
             return "admin/login";
