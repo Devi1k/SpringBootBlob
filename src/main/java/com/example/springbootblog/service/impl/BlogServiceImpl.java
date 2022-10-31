@@ -11,13 +11,19 @@ import com.example.springbootblog.entity.BlogTagRelation;
 import com.example.springbootblog.service.BlogService;
 import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.PageResult;
+import com.example.springbootblog.vo.BlogListVO;
+import com.example.springbootblog.vo.SimpleBlogListVO;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import javax.annotation.Resource;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 public class BlogServiceImpl implements BlogService {
@@ -179,5 +185,63 @@ public class BlogServiceImpl implements BlogService {
             return false;
         }
         return blogMapper.deleteBatch(ids) > 0;
+    }
+
+    @Override
+    public List<SimpleBlogListVO> getBlogListForIndexPage(int type) {
+        List<SimpleBlogListVO> simpleBlogListVOS = new ArrayList<>();
+        List<Blog> blogList = blogMapper.findBlogListByType(type, 9);
+        if (!CollectionUtils.isEmpty(blogList)) {
+            for (Blog blog : blogList) {
+                SimpleBlogListVO simpleBlogListVO = new SimpleBlogListVO();
+                BeanUtils.copyProperties(blog, simpleBlogListVO);
+                simpleBlogListVOS.add(simpleBlogListVO);
+            }
+        }
+        return simpleBlogListVOS;
+    }
+
+
+    public PageResult getBlogsForIndexPage(int page) {
+        Map params = new HashMap();
+        params.put("page", page);
+        params.put("limit", 8);
+        params.put("blogStatus", 1);
+        PageQueryUtil pageQueryUtil = new PageQueryUtil(params);
+        List<Blog> blogList = blogMapper.findBlogList(pageQueryUtil);
+        int total = blogMapper.getTotalBlogs(pageQueryUtil);
+        PageResult pageResult = new PageResult(blogList, total, pageQueryUtil.getLimit(), page);
+        return pageResult;
+    }
+
+
+    public List<BlogListVO> getBlogListVOsByBlogs(List<Blog> blogList) {
+        List<BlogListVO> blogListVOS = new ArrayList<>();
+        if (!CollectionUtils.isEmpty(blogListVOS)) {
+            List<Integer> categoryIds = blogList.stream().map(Blog::getBlogCategoryId).collect(Collectors.toList());
+            Map<Integer, String> blogCategoryMap = new HashMap<>();
+            if (!CollectionUtils.isEmpty(categoryIds)) {
+                List<BlogCategory> blogCategories = categoryMapper.selectByCategoryIds(categoryIds);
+                if (!CollectionUtils.isEmpty(blogCategories)) {
+                    blogCategoryMap = blogCategories.stream().collect(Collectors.toMap(BlogCategory::getCategoryId, BlogCategory::getCategoryIcon, (key1, key2) -> key2));
+
+                }
+            }
+            for (Blog blog : blogList
+            ) {
+                BlogListVO blogListVO = new BlogListVO();
+                BeanUtils.copyProperties(blog, blogListVO);
+                if (blogCategoryMap.containsKey(blog.getBlogCategoryId())) {
+                    blogListVO.setBlogCategoryIcon(blogCategoryMap.get(blog.getBlogCategoryId()));
+                } else {
+                    blogListVO.setBlogCategoryId(0);
+                    blogListVO.setBlogCategoryName("默认分类");
+                    blogListVO.setBlogCategoryIcon("/admin/dist/img/category/1.png");
+                }
+                blogListVOS.add(blogListVO);
+
+            }
+        }
+        return blogListVOS;
     }
 }

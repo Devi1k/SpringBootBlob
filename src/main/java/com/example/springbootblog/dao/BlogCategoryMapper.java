@@ -2,6 +2,7 @@ package com.example.springbootblog.dao;
 
 import com.example.springbootblog.entity.BlogCategory;
 import com.example.springbootblog.utils.PageQueryUtil;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,6 @@ public interface BlogCategoryMapper {
     BlogCategory selectByPrimaryKey(Integer id);
 
     int updateByPrimaryKeySelective(BlogCategory record);
+
+    List<BlogCategory> selectByCategoryIds(@Param("categoryIds") List<Integer> categoryIds);
 }
