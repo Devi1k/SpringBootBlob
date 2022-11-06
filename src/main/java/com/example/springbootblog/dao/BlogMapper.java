@@ -25,4 +25,8 @@ public interface BlogMapper {
     int deleteBatch(Integer[] ids);
 
     List<Blog> findBlogListByType(@Param("type") int type, @Param("limit") int limit);
+
+    List<Blog> getBlogsPageByTagId(PageQueryUtil pageQueryUtil);
+
+    int getTotalBlogsByTagId(PageQueryUtil pageQueryUtil);
 }

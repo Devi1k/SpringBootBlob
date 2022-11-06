@@ -23,4 +23,10 @@ public interface BlogService {
     List<SimpleBlogListVO> getBlogListForIndexPage(int type);
 
     PageResult getBlogsForIndexPage(int page);
+
+    PageResult getBlogsPageForSearch(String keyword, int page);
+
+    PageResult getBlogsPageByCategory(String categoryName, int page);
+
+    PageResult getBlogsPageByTag(String tagName, int page);
 }

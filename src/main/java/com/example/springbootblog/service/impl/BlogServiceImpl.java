@@ -11,6 +11,7 @@ import com.example.springbootblog.entity.BlogTagRelation;
 import com.example.springbootblog.service.BlogService;
 import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.PageResult;
+import com.example.springbootblog.utils.PatternUtil;
 import com.example.springbootblog.vo.BlogListVO;
 import com.example.springbootblog.vo.SimpleBlogListVO;
 import org.springframework.beans.BeanUtils;
@@ -214,10 +215,73 @@ public class BlogServiceImpl implements BlogService {
         return pageResult;
     }
 
+    @Override
+    public PageResult getBlogsPageForSearch(String keyword, int page) {
+        if (page > 0 && PatternUtil.validKeyword(keyword)) {
+            Map params = new HashMap();
+            params.put("page", page);
+            params.put("limit", 9);
+            params.put("keyword", keyword);
+            params.put("blogStatus", 1);
+            PageQueryUtil pageQueryUtil = new PageQueryUtil(params);
+            List<Blog> blogList = blogMapper.findBlogList(pageQueryUtil);
+            List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
+            int total = blogMapper.getTotalBlogs(pageQueryUtil);
+            PageResult pageResult = new PageResult(blogListVOS, total, pageQueryUtil.getLimit(), pageQueryUtil.getPage());
+            return pageResult;
+        }
+        return null;
+    }
 
-    public List<BlogListVO> getBlogListVOsByBlogs(List<Blog> blogList) {
+    @Override
+    public PageResult getBlogsPageByCategory(String categoryName, int page) {
+        if (PatternUtil.validKeyword(categoryName)) {
+            BlogCategory blogCategory = categoryMapper.selectByCategoryName(categoryName);
+            if ("默认分类".equals(categoryName) && blogCategory == null) {
+                blogCategory = new BlogCategory();
+                blogCategory.setCategoryId(0);
+            }
+            if (blogCategory != null && page > 0) {
+                Map param = new HashMap();
+                param.put("page", page);
+                param.put("limit", 9);
+                param.put("blogCategoryId", blogCategory.getCategoryId());
+                param.put("blogStatus", 1);
+                PageQueryUtil pageUtil = new PageQueryUtil(param);
+                List<Blog> blogList = blogMapper.findBlogList(pageUtil);
+                List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
+                int total = blogMapper.getTotalBlogs(pageUtil);
+                PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+                return pageResult;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public PageResult getBlogsPageByTag(String tagName, int page) {
+        if (PatternUtil.validKeyword(tagName)) {
+            BlogTag tag = blogTagMapper.selectByTagName(tagName);
+            if (tag != null && page > 0) {
+                Map param = new HashMap();
+                param.put("page", page);
+                param.put("limit", 9);
+                param.put("tagId", tag.getTagId());
+                PageQueryUtil pageUtil = new PageQueryUtil(param);
+                List<Blog> blogList = blogMapper.getBlogsPageByTagId(pageUtil);
+                List<BlogListVO> blogListVOS = getBlogListVOsByBlogs(blogList);
+                int total = blogMapper.getTotalBlogsByTagId(pageUtil);
+                PageResult pageResult = new PageResult(blogListVOS, total, pageUtil.getLimit(), pageUtil.getPage());
+                return pageResult;
+            }
+        }
+        return null;
+    }
+
+
+    private List<BlogListVO> getBlogListVOsByBlogs(List<Blog> blogList) {
         List<BlogListVO> blogListVOS = new ArrayList<>();
-        if (!CollectionUtils.isEmpty(blogListVOS)) {
+        if (!CollectionUtils.isEmpty(blogList)) {
             List<Integer> categoryIds = blogList.stream().map(Blog::getBlogCategoryId).collect(Collectors.toList());
             Map<Integer, String> blogCategoryMap = new HashMap<>();
             if (!CollectionUtils.isEmpty(categoryIds)) {
