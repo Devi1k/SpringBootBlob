@@ -3,6 +3,7 @@ package com.example.springbootblog.controller.blog;
 import com.example.springbootblog.service.BlogService;
 import com.example.springbootblog.service.TagService;
 import com.example.springbootblog.utils.PageResult;
+import com.example.springbootblog.vo.BlogDetailVO;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,8 +38,8 @@ public class MyBlogController {
         request.setAttribute("hotBlogs", blogService.getBlogListForIndexPage(0));
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
         request.setAttribute("blogPageResult", pageResult);
-        return "blog/index";
-//        return "blog/" + theme + "/index";
+//        return "blog/index";
+        return "blog/" + theme + "/index";
     }
 
     @GetMapping({"/search/{keyword}"})
@@ -83,6 +84,17 @@ public class MyBlogController {
         request.setAttribute("pageName", "标签");
         request.setAttribute("pageUrl", "tag");
         request.setAttribute("keyword", tagName);
+        return "blog/list";
+    }
+
+
+    @GetMapping("/blog/{blogId}")
+    public String detail(HttpServletRequest request, @PathVariable("blogId") Long blogId) {
+        BlogDetailVO blogDetailVO = blogService.getBlogDetail(blogId);
+        if (blogDetailVO != null) {
+            request.setAttribute("blogDetailVO", blogDetailVO);
+        }
+        request.setAttribute("pageName", "详情");
         return "blog/list";
     }
 }

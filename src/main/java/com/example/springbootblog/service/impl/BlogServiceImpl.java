@@ -9,21 +9,21 @@ import com.example.springbootblog.entity.BlogCategory;
 import com.example.springbootblog.entity.BlogTag;
 import com.example.springbootblog.entity.BlogTagRelation;
 import com.example.springbootblog.service.BlogService;
+import com.example.springbootblog.utils.MarkDownUtil;
 import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.PageResult;
 import com.example.springbootblog.utils.PatternUtil;
+import com.example.springbootblog.vo.BlogDetailVO;
 import com.example.springbootblog.vo.BlogListVO;
 import com.example.springbootblog.vo.SimpleBlogListVO;
 import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 
 import javax.annotation.Resource;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 @Service
@@ -307,5 +307,40 @@ public class BlogServiceImpl implements BlogService {
             }
         }
         return blogListVOS;
+    }
+
+
+    public BlogDetailVO getBlogDetail(Long blogId) {
+        Blog blog = blogMapper.selectByPrimaryKey(blogId);
+        BlogDetailVO blogDetailVO = getBlogDetailVO(blog);
+        if (blogDetailVO != null) {
+            return blogDetailVO;
+        }
+        return null;
+    }
+
+
+    private BlogDetailVO getBlogDetailVO(Blog blog) {
+        if (blog != null && blog.getBlogStatus() != 0) {
+            blog.setBlogViews(blog.getBlogViews() + 1);
+            blogMapper.updateByPrimaryKeySelective(blog);
+            BlogDetailVO blogDetailVO = new BlogDetailVO();
+            BeanUtils.copyProperties(blog, blogDetailVO);
+            blogDetailVO.setBlogContent(MarkDownUtil.mdToHtml(blogDetailVO.getBlogContent()));
+            BlogCategory blogCategory = categoryMapper.selectByPrimaryKey(blog.getBlogCategoryId());
+            if (blogCategory == null) {
+                blogCategory = new BlogCategory();
+                blogCategory.setCategoryId(0);
+                blogCategory.setCategoryName("默认分类");
+                blogCategory.setCategoryIcon("/admin/dist/img/category/00.png");
+            }
+            blogDetailVO.setBlogCategoryIcon(blogCategory.getCategoryIcon());
+            if (!StringUtils.isEmpty(blog.getBlogTags())) {
+                List<String> tags = Arrays.asList(blog.getBlogTags().split(","));
+                blogDetailVO.setBlogTags(tags);
+            }
+            return blogDetailVO;
+        }
+        return null;
     }
 }

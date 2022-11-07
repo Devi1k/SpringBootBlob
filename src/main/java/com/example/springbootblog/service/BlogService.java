@@ -3,6 +3,7 @@ package com.example.springbootblog.service;
 import com.example.springbootblog.entity.Blog;
 import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.PageResult;
+import com.example.springbootblog.vo.BlogDetailVO;
 import com.example.springbootblog.vo.SimpleBlogListVO;
 
 import java.util.List;
@@ -29,4 +30,7 @@ public interface BlogService {
     PageResult getBlogsPageByCategory(String categoryName, int page);
 
     PageResult getBlogsPageByTag(String tagName, int page);
+
+    public BlogDetailVO getBlogDetail(Long blogId);
+
 }
