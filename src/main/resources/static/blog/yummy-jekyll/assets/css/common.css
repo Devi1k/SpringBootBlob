@@ -75,7 +75,6 @@
     -o-box-shadow: 0 0.125em 0.125em 0 rgba(0, 0, 0, 0.125);
     box-shadow: 0 0.125em 0.125em 0 rgba(0, 0, 0, 0.125);
 }
-
 /******* Scroll End *******/
 
 /** Jumbotron **/
@@ -89,7 +88,6 @@
     color: #fff;
     text-decoration: none;
 }
-
 .jumbotron #jumbotron-meta-info {
     margin-top: 20px;;
 }

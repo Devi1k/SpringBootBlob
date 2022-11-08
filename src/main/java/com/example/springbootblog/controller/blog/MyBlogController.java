@@ -1,15 +1,19 @@
 package com.example.springbootblog.controller.blog;
 
+import com.example.springbootblog.controller.vo.BlogDetailVO;
+import com.example.springbootblog.entity.BlogComment;
 import com.example.springbootblog.service.BlogService;
+import com.example.springbootblog.service.CommentService;
+import com.example.springbootblog.service.ConfigService;
 import com.example.springbootblog.service.TagService;
-import com.example.springbootblog.utils.PageResult;
-import com.example.springbootblog.vo.BlogDetailVO;
+import com.example.springbootblog.utils.*;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.util.StringUtils;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 @Controller
 public class MyBlogController {
@@ -21,6 +25,12 @@ public class MyBlogController {
 
     @Resource
     private TagService tagService;
+
+    @Resource
+    private CommentService commentService;
+
+    @Resource
+    private ConfigService configService;
 
     @GetMapping({"/", "/index", "/index.html"})
     public String index(HttpServletRequest request) {
@@ -38,6 +48,8 @@ public class MyBlogController {
         request.setAttribute("hotBlogs", blogService.getBlogListForIndexPage(0));
         request.setAttribute("hotTags", tagService.getBlogTagCountForIndex());
         request.setAttribute("blogPageResult", pageResult);
+        request.setAttribute("configurations", configService.getAllConfigs());
+
 //        return "blog/index";
         return "blog/" + theme + "/index";
     }
@@ -54,7 +66,9 @@ public class MyBlogController {
         request.setAttribute("pageName", "搜索");
         request.setAttribute("pageUrl", "search");
         request.setAttribute("keyword", keyword);
-        return "blog/list";
+        request.setAttribute("configurations", configService.getAllConfigs());
+
+        return "blog/" + theme + "/list";
     }
 
     @GetMapping({"/category/{categoryName}"})
@@ -69,7 +83,8 @@ public class MyBlogController {
         request.setAttribute("pageName", "分类");
         request.setAttribute("pageUrl", "category");
         request.setAttribute("keyword", categoryName);
-        return "blog/list";
+        request.setAttribute("configurations", configService.getAllConfigs());
+        return "blog/" + theme + "/list";
     }
 
     @GetMapping({"/tag/{tagName}"})
@@ -84,17 +99,77 @@ public class MyBlogController {
         request.setAttribute("pageName", "标签");
         request.setAttribute("pageUrl", "tag");
         request.setAttribute("keyword", tagName);
-        return "blog/list";
+        request.setAttribute("configurations", configService.getAllConfigs());
+
+        return "blog/" + theme + "/list";
+
     }
 
 
     @GetMapping("/blog/{blogId}")
-    public String detail(HttpServletRequest request, @PathVariable("blogId") Long blogId) {
+    public String detail(HttpServletRequest request, @PathVariable("blogId") Long blogId,
+                         @RequestParam(value = "commentPage", required = false, defaultValue = "1") Integer commentPage) {
         BlogDetailVO blogDetailVO = blogService.getBlogDetail(blogId);
         if (blogDetailVO != null) {
             request.setAttribute("blogDetailVO", blogDetailVO);
+            request.setAttribute("commentPageResult", commentService.getCommentPageByBlogIdAndPageNum(blogId, commentPage));
         }
         request.setAttribute("pageName", "详情");
-        return "blog/list";
+        request.setAttribute("configurations", configService.getAllConfigs());
+
+        return "blog/" + theme + "/list";
+    }
+
+    @PostMapping(value = "/blog/comment")
+    @ResponseBody
+    public Result comment(HttpServletRequest request,
+                          HttpSession session,
+                          @RequestParam Long blogId,
+                          @RequestParam String verifyCode,
+                          @RequestParam String commentator,
+                          @RequestParam String email,
+                          @RequestParam String websiteUrl,
+                          @RequestParam String commentBody) {
+        if (StringUtils.isEmpty(verifyCode)) {
+            return ResultGenerator.genFailResult("验证码不能为空");
+        }
+        String kaptchaCode = session.getAttribute("verifyCode") + "";
+        if (StringUtils.isEmpty(kaptchaCode)) {
+            return ResultGenerator.genFailResult("非法请求");
+        }
+        if (!verifyCode.equals(kaptchaCode)) {
+            return ResultGenerator.genFailResult("验证码错误");
+        }
+        String ref = request.getHeader("Referer");
+        if (StringUtils.isEmpty(ref)) {
+            return ResultGenerator.genFailResult("非法请求");
+        }
+        if (null == blogId || blogId < 0) {
+            return ResultGenerator.genFailResult("非法请求");
+        }
+        if (StringUtils.isEmpty(commentator)) {
+            return ResultGenerator.genFailResult("请输入称呼");
+        }
+        if (StringUtils.isEmpty(email)) {
+            return ResultGenerator.genFailResult("请输入邮箱地址");
+        }
+        if (!PatternUtil.isEmail(email)) {
+            return ResultGenerator.genFailResult("请输入正确的邮箱地址");
+        }
+        if (StringUtils.isEmpty(commentBody)) {
+            return ResultGenerator.genFailResult("请输入评论内容");
+        }
+        if (commentBody.trim().length() > 200) {
+            return ResultGenerator.genFailResult("评论内容过长");
+        }
+        BlogComment comment = new BlogComment();
+        comment.setBlogId(blogId);
+        comment.setCommentator(commentator);
+        comment.setEmail(email);
+        if (PatternUtil.isURL(websiteUrl)) {
+            comment.setWebsiteUrl(websiteUrl);
+        }
+        comment.setCommentBody(MyBlogUtils.cleanString(commentBody));
+        return ResultGenerator.genSuccessResult(commentService.addComment(comment));
     }
 }

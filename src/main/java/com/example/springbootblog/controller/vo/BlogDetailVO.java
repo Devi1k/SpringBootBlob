@@ -1,4 +1,4 @@
-package com.example.springbootblog.vo;
+package com.example.springbootblog.controller.vo;
 
 import java.io.Serializable;
 import java.util.Date;

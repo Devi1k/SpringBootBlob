@@ -100,7 +100,6 @@ function addBlog() {
 
 function editBlog() {
     var id = getSelectedRow();
-    console.log(id);
     if (id == null) {
         return;
     }

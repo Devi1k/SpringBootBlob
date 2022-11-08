@@ -9,10 +9,11 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>com.example</groupId>
-    <artifactId>SpringBootBlob</artifactId>
+    <artifactId>SpringBootBlog</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>SpringBootBlob</name>
-    <description>SpringBootBlob</description>
+    <packaging>war</packaging>
+    <name>SpringBootBlog</name>
+    <description>SpringBootBlog</description>
     <properties>
         <java.version>1.8</java.version>
     </properties>
@@ -28,6 +29,17 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.springframework.boot</groupId>
+                    <artifactId>spring-boot-starter-tomcat</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-tomcat</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.mybatis.spring.boot</groupId>

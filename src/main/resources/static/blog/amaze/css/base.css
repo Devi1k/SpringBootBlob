@@ -4664,7 +4664,6 @@ input {
     box-shadow: 0 1px 4px rgba(0, 0, 0, .04);
     -webkit-appearance: none;
 }
-
 .search-submit {
     position: absolute;
     top: 5px;
@@ -4686,7 +4685,6 @@ input {
     font-size: 0;
     text-align: justify;
 }
-
 .archives-list .archives-list-item {
     display: inline-block;
     width: 32%;
@@ -4699,7 +4697,6 @@ input {
     box-sizing: border-box;
     padding: 12px;
 }
-
 .archives-list .archives-list-item:hover {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, .1);
     transform: scale(1.01);
@@ -4710,12 +4707,10 @@ input {
         width: 49%;
     }
 }
-
 .links-item:hover {
     box-shadow: 2px 2px 2px rgba(0, 0, 0, .1);
     transform: scale(1.01);
 }
-
 .links-item {
     width: 100%;
     height: 80px;
@@ -4732,7 +4727,6 @@ input {
 .links-item .item-desc {
     display: block;
 }
-
 .links-item .item-desc {
     font-size: 12px;
 }
@@ -4818,7 +4812,6 @@ aside.comments .comment header .meta {
     margin-left: 100px;
     font-size: 14px;
 }
-
 .back-top {
     position: fixed;
     bottom: 10px;

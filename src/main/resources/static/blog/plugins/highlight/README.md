@@ -75,6 +75,7 @@ $('div.code').each(function(i, block) {
 
 For other options refer to the documentation for [`configure`][4].
 
+
 ## Web Workers
 
 You can run highlighting inside a web worker to avoid freezing the browser
@@ -100,6 +101,7 @@ onmessage = function(event) {
   postMessage(result.value);
 }
 ```
+
 
 ## Getting the Library
 
@@ -176,17 +178,10 @@ Further in-depth documentation for the API and other topics is at
 Authors and contributors are listed in the [AUTHORS.en.txt][8] file.
 
 [1]: http://highlightjs.readthedocs.io/en/latest/api.html#inithighlightingonload
-
 [2]: http://highlightjs.readthedocs.io/en/latest/css-classes-reference.html
-
 [3]: http://highlightjs.readthedocs.io/en/latest/api.html#highlightblock-block
-
 [4]: http://highlightjs.readthedocs.io/en/latest/api.html#configure-options
-
 [5]: https://highlightjs.org/download/
-
 [6]: http://highlightjs.readthedocs.io/en/latest/building-testing.html
-
 [7]: https://github.com/highlightjs/highlight.js/blob/master/LICENSE
-
 [8]: https://github.com/highlightjs/highlight.js/blob/master/AUTHORS.en.txt

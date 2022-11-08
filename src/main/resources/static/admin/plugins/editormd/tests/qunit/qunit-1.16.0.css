@@ -121,7 +121,6 @@
     color: #C2CCD1;
     text-decoration: none;
 }
-
 #qunit-tests li a:hover,
 #qunit-tests li a:focus {
     color: #000;
@@ -286,7 +285,6 @@
 
     border-bottom: 1px solid #FFF;
 }
-
 #qunit-testresult .module-name {
     font-weight: 700;
 }

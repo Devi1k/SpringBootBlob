@@ -1,10 +1,10 @@
 package com.example.springbootblog.service;
 
+import com.example.springbootblog.controller.vo.BlogDetailVO;
+import com.example.springbootblog.controller.vo.SimpleBlogListVO;
 import com.example.springbootblog.entity.Blog;
 import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.PageResult;
-import com.example.springbootblog.vo.BlogDetailVO;
-import com.example.springbootblog.vo.SimpleBlogListVO;
 
 import java.util.List;
 

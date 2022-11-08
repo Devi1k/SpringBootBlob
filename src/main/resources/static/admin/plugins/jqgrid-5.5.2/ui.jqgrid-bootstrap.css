@@ -79,7 +79,6 @@
     border-bottom: none;
     padding-right: 2px;
 }
-
 .ui-jqgrid .ui-jqgrid-htable thead th div {
     overflow: hidden;
     position: relative;
@@ -149,15 +148,12 @@
 .ui-jqgrid .ui-icon-asc {
     margin-top: -3px;
 }
-
 .ui-jqgrid .ui-icon-desc {
     margin-top: 4px;
 }
-
 .ui-jqgrid .ui-i-asc {
     margin-top: 0;
 }
-
 .ui-jqgrid .ui-i-desc {
     margin-top: 0;
     margin-right: 13px;
@@ -300,7 +296,6 @@ div.tablediv > .table-bordered {
     border-top: 0 none !important;
     border-right: 0 none !important;
 }
-
 .ui-jqgrid .ui-jqgrid-ftable {
     table-layout: fixed;
     margin-bottom: 0;
@@ -313,11 +308,9 @@ div.tablediv > .table-bordered {
     padding-right: 2px;
     border-bottom: 0px none;
 }
-
 .ui-jqgrid tr.footrow-ltr td {
     text-align: left;
 }
-
 .ui-jqgrid tr.footrow-rtl td {
     text-align: right;
 }
@@ -347,14 +340,12 @@ div.tablediv > .table-bordered {
     border-top: 0;
     /*height: 30px;*/
 }
-
 .ui-jqgrid .ui-pg-table {
     position: relative;
     padding: 1px 0;
     width: auto;
     margin: 0;
 }
-
 .ui-jqgrid .ui-pg-table td {
     font-weight: normal;
     vertical-align: middle;
@@ -408,7 +399,6 @@ div.tablediv > .table-bordered {
     padding: 3px 0px 3px 3px;
     border: none;
 }
-
 .ui-jqgrid .ui-separator {
     height: 18px;
     border: none;
@@ -491,7 +481,6 @@ div.tablediv > .table-bordered {
 .ui-jqgrid .ui-jqgrid-btable .ui-sgcollapsed span {
     display: block;
 }
-
 .ui-jqgrid .ui-subgrid {
     margin: 0;
     padding: 0;
@@ -546,7 +535,6 @@ div.tablediv > .table-bordered {
 .ui-jqgrid .jqgrid-overlay {
     display: none;
 }
-
 /* IE * html .jqgrid-overlay {width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');} */
 * .jqgrid-overlay iframe {
     position: absolute;
@@ -554,7 +542,6 @@ div.tablediv > .table-bordered {
     left: 0;
     z-index: -1;
 }
-
 /* IE width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');}*/
 /* end loading div */
 
@@ -687,7 +674,6 @@ div.tablediv > .table-bordered {
     text-align: right;
     padding: 5px 5px 5px 0;
 }
-
 .ui-jqdialog-content td.navButton {
     text-align: center;
     border-left: 0 none;
@@ -696,17 +682,14 @@ div.tablediv > .table-bordered {
     padding-bottom: 5px;
     padding-top: 5px;
 }
-
 .ui-jqdialog-content input.FormElement {
     padding: .5em .3em;
     margin-bottom: 5px
 }
-
 .ui-jqdialog-content select.FormElement {
     padding: .3em;
     margin-bottom: 3px;
 }
-
 .ui-jqdialog-content .data-line {
     padding-top: .1em;
     border: 0 none;
@@ -763,7 +746,6 @@ div.tablediv > .table-bordered {
 div.ui-jqgrid .selected-row td {
     font-style: normal;
 }
-
 /* inline edit actions button*/
 .ui-inline-del, .ui-inline-cancel {
     margin-left: 14px;
@@ -771,7 +753,6 @@ div.ui-jqgrid .selected-row td {
 
 .ui-jqgrid .inline-edit-cell {
 }
-
 /* Tree Grid */
 .ui-jqgrid .tree-wrap {
     float: left;
@@ -780,32 +761,27 @@ div.ui-jqgrid .selected-row td {
     white-space: nowrap;
     overflow: hidden;
 }
-
 .ui-jqgrid .tree-minus {
     position: absolute;
     height: 18px;
     width: 18px;
     overflow: hidden;
 }
-
 .ui-jqgrid .tree-plus {
     position: absolute;
     height: 18px;
     width: 18px;
     overflow: hidden;
 }
-
 .ui-jqgrid .tree-leaf {
     position: absolute;
     height: 18px;
     width: 18px;
     overflow: hidden;
 }
-
 .ui-jqgrid .treeclick {
     cursor: pointer;
 }
-
 /* moda dialog */
 * iframe.jqm {
     position: absolute;
@@ -813,7 +789,6 @@ div.ui-jqgrid .selected-row td {
     left: 0;
     z-index: -1;
 }
-
 /*	 width: expression(this.parentNode.offsetWidth+'px');height: expression(this.parentNode.offsetHeight+'px');}*/
 .ui-jqgrid-dnd tr td {
     border-right-width: 1px;
@@ -821,45 +796,36 @@ div.ui-jqgrid .selected-row td {
     border-right-style: solid;
     height: 20px
 }
-
 /* RTL Support */
 .ui-jqgrid .ui-jqgrid-caption-rtl {
     text-align: right;
 }
-
 .ui-jqgrid .ui-jqgrid-hbox-rtl {
     float: right;
     /*padding-left: 20px;*/
 }
-
 .ui-jqgrid .ui-jqgrid-resize-ltr {
     float: right;
     margin: -2px -2px -2px 0;
     height: 100%;
 }
-
 .ui-jqgrid .ui-jqgrid-resize-rtl {
     float: left;
     margin: -2px -2px -2px -0px;
 }
-
 .ui-jqgrid .ui-sort-rtl {
 
 }
-
 .ui-jqgrid .tree-wrap-ltr {
     float: left;
 }
-
 .ui-jqgrid .tree-wrap-rtl {
     float: right;
 }
-
 .ui-jqgrid .ui-ellipsis {
     -moz-text-overflow: ellipsis;
     text-overflow: ellipsis;
 }
-
 /* Toolbar Search Menu. Nav menu */
 .ui-search-menu,
 .ui-nav-menu {
@@ -916,13 +882,12 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
 .ui-search-table input {
     padding: 4px 3px;
 }
-
+	
 .ui-disabled {
     opacity: .35;
     filter: Alpha(Opacity=35); /* support: IE8 */
     background-image: none;
 }
-
 .ui-overlay {
     position: fixed;
     top: 0;
@@ -948,7 +913,6 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
     display: block;
     left: 97%;
 }
-
 .ui-jqdialog .ui-resizable-se {
     width: 12px;
     height: 12px;
@@ -956,7 +920,6 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
     bottom: -5px;
     background-position: 16px 16px;
 }
-
 .ui-resizable-se {
     cursor: se-resize;
     width: 12px;
@@ -964,12 +927,10 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
     right: 1px;
     bottom: 1px;
 }
-
 .ui-top-corner {
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
-
 .ui-bottom-corner {
     border-bottom-left-radius: 5px;
     border-bottom-right-radius: 5px;
@@ -978,26 +939,21 @@ a.g-menu-item, a.soptclass, a.clearsearchclass {
 .ui-search-table {
     margin-bottom: 0;
 }
-
 .ui-search-table .columns, .ui-search-table .operators {
     padding-right: 5px;
 }
-
 .opsel {
     float: left;
     width: 100px;
     margin-right: 5px;
 }
-
 .add-group, .add-rule, .delete-group {
     width: 14%;
     margin-right: 5px;
 }
-
 .delete-rule {
     width: 15px;
 }
-
 ul.ui-search-menu, ul.ui-nav-menu {
     list-style-type: none;
 }
@@ -1009,17 +965,14 @@ ul.ui-nav-menu li a,
     text-decoration: none;
     color: #010101;
 }
-
 ul.ui-search-menu li a:hover, ul.ui-nav-menu li a:hover, a.soptclass:hover, a.clearsearchclass:hover {
     background-color: #ddd;
     padding: 1px 1px;
     text-decoration: none;
 }
-
 ul.ui-search-menu li, ul.ui-nav-menu li {
     padding: 5px 5px;
 }
-
 .ui-menu-item hr {
     margin-bottom: 0px;
     margin-top: 0px;
@@ -1045,7 +998,6 @@ ul.ui-search-menu li, ul.ui-nav-menu li {
 .frozen-div, .frozen-bdiv {
     background-color: #fff;
 }
-
 /*
 .ui-jqgrid .ui-jqgrid-caption,
 .ui-jqgrid .ui-jqgrid-pager,
@@ -1069,12 +1021,10 @@ ul.ui-search-menu li, ul.ui-nav-menu li {
     height: 100%;
     color: black;
 }
-
 .ui-jqgrid .ui-jqgrid-htable .colmenu-rtl {
     right: auto;
     left: 1px;
 }
-
 .ui-jqgrid .ui-jqgrid-htable .colmenuspan {
     display: inline-block;
 }
@@ -1083,11 +1033,9 @@ ul.ui-search-menu li, ul.ui-nav-menu li {
     height: 17px;
     margin-top: 5px;
 }
-
 .column-menu, .ui-search-menu {
     padding: 10px 15px;
 }
-
 .column-menu .divider {
     background-color: #e5e5e5;
     height: 1px;
@@ -1095,18 +1043,15 @@ ul.ui-search-menu li, ul.ui-nav-menu li {
     margin: 5px 0;
     overflow: hidden;
 }
-
 .ui-menu-item .ui-common-table .menu_icon {
     padding-right: 8px;
     padding-left: 8px;
 }
-
 td.menu_text {
     width: auto;
     padding-left: 1px;
     white-space: nowrap;
 }
-
 #search_menu .ui-menu-item div {
     padding: 3px 0;
     white-space: nowrap;
@@ -1122,33 +1067,27 @@ td.menu_text {
     padding-bottom: 6px;
     padding-top: 6px;
 }
-
 .search_buttons #bs_reset {
     margin-right: 3px;
 }
-
 .search_buttons #bs_search {
     margin-left: 3px;
 }
-
 /*menubar*/
 .ui-jqgrid .ui-jqgrid-menubar {
     margin: 5px 5px;
     width: 16px;
     height: 16px;
 }
-
 .ui-jqgrid a.ui-jqgrid-menubar {
     text-decoration: none;
     color: #010101; /*default*/
 }
-
 .ui-jqgrid .ui-jqgrid-menubar:hover {
     margin: 5px 5px;
     background-color: #ddd;
     text-decoration: none;
 }
-
 .ui-jqgrid .menubar-rtl {
     float: right;
 }
@@ -1156,7 +1095,6 @@ td.menu_text {
 .ui-jqgrid .menubar-ltr {
     float: left;
 }
-
 /*printing*/
 
 .jqgridprint {
@@ -1169,11 +1107,9 @@ td.menu_text {
     padding: 4px 4px 4px 4px;
     text-align: center;
 }
-
 .jqgridprint th {
     border-bottom: 2px solid #333333;
 }
-
 .jqgridprint td {
     border-bottom: 1px dotted #999999;
 }

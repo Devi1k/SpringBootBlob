@@ -17,6 +17,16 @@ public class Blog {
 
     private String blogCategoryName;
 
+    private String blogCategoryIcon;
+
+    public String getBlogCategoryIcon() {
+        return blogCategoryIcon;
+    }
+
+    public void setBlogCategoryIcon(String blogCategoryIcon) {
+        this.blogCategoryIcon = blogCategoryIcon;
+    }
+
     private String blogTags;
 
     private Byte blogStatus;
@@ -155,6 +165,7 @@ public class Blog {
                 ", blogCoverImage='" + blogCoverImage + '\'' +
                 ", blogCategoryId=" + blogCategoryId +
                 ", blogCategoryName='" + blogCategoryName + '\'' +
+                ", blogCategoryIcon='" + blogCategoryIcon + '\'' +
                 ", blogTags='" + blogTags + '\'' +
                 ", blogStatus=" + blogStatus +
                 ", blogViews=" + blogViews +
