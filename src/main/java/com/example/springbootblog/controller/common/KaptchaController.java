@@ -32,7 +32,7 @@ public class KaptchaController {
         try {
             String verifyCode = captchaProducer.createText();
             httpServletRequest.getSession().setAttribute("verifyCode", verifyCode);
-            System.out.println(verifyCode);
+//            System.out.println(verifyCode);
             BufferedImage challenge = captchaProducer.createImage(verifyCode);
             ImageIO.write(challenge, "jpg", imgOutputStream);
         } catch (IllegalArgumentException e) {

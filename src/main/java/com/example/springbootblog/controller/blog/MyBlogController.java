@@ -117,7 +117,7 @@ public class MyBlogController {
         request.setAttribute("pageName", "详情");
         request.setAttribute("configurations", configService.getAllConfigs());
 
-        return "blog/" + theme + "/list";
+        return "blog/" + theme + "/detail";
     }
 
     @PostMapping(value = "/blog/comment")
