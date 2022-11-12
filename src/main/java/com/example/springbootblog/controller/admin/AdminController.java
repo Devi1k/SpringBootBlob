@@ -75,7 +75,7 @@ public class AdminController {
 
     }
 
-    @GetMapping("profile")
+    @GetMapping("/profile")
     public String profile(HttpServletRequest request) {
         Integer userId = (int) request.getSession().getAttribute("loginUserId");
         AdminUser adminUser = adminUserService.getUserDetailById(userId);
