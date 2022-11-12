@@ -58,7 +58,6 @@ public class KaptchaController {
         }
 
         String kaptchaCode = session.getAttribute("verifyCode") + "";
-        System.out.println(kaptchaCode + code);
         if (StringUtils.isEmpty(kaptchaCode) || !code.equals(kaptchaCode)) {
             return "验证码错误";
         }

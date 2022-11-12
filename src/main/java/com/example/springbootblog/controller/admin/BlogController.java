@@ -8,6 +8,7 @@ import com.example.springbootblog.utils.MyBlogUtils;
 import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.Result;
 import com.example.springbootblog.utils.ResultGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,7 @@ import java.util.Date;
 import java.util.Map;
 import java.util.Random;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class BlogController {
@@ -62,7 +64,7 @@ public class BlogController {
     @GetMapping("/blogs/edit/{blogId}")
     public String edit(HttpServletRequest request, @PathVariable("blogId") Long blogId) {
         request.setAttribute("path", "edit");
-        System.out.println(blogId);
+        log.info(String.valueOf(blogId));
         Blog blog = blogService.getBlogById(blogId);
         if (blog == null) {
             return "error/error_400";

@@ -4,6 +4,7 @@ import com.example.springbootblog.service.CategoryService;
 import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.Result;
 import com.example.springbootblog.utils.ResultGenerator;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +13,7 @@ import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
+@Slf4j
 @Controller
 @RequestMapping("/admin")
 public class CategoryController {
@@ -57,7 +59,6 @@ public class CategoryController {
     @PostMapping("/categories/delete")
     @ResponseBody
     public Result delete(@RequestBody Integer[] ids) {
-        System.out.println(ids.length);
         if (ids.length < 1) {
             return ResultGenerator.genFailResult("参数异常");
         }

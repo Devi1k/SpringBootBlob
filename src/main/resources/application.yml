@@ -7,3 +7,7 @@ spring:
     name: demo
 mybatis:
   mapper-locations: classpath:mapper/*Mapper.xml
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: /home/ubuntu/BlogLogs/
