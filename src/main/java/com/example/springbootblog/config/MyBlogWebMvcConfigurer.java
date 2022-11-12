@@ -2,6 +2,7 @@ package com.example.springbootblog.config;
 
 import com.example.springbootblog.interceptor.AdminLoginInterceptor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -12,8 +13,11 @@ public class MyBlogWebMvcConfigurer implements WebMvcConfigurer {
     @Autowired
     private AdminLoginInterceptor adminLoginInterceptor;
 
+    @Value("${upload.file.path}")
+    private String uploadPath;
+
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry.addResourceHandler("/upload/**").addResourceLocations("file:/Users/starry/Documents/Upload/");
+        registry.addResourceHandler("/upload/**").addResourceLocations("file:" + uploadPath);
     }
 
 

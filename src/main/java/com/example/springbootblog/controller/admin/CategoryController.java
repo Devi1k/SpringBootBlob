@@ -25,7 +25,7 @@ public class CategoryController {
     @GetMapping("/categories")
     public String categoryPage(HttpServletRequest request) {
         request.setAttribute("path", "categories");
-        return "/admin/category";
+        return "admin/category";
     }
 
     @GetMapping("/categories/list")

@@ -1,6 +1,5 @@
 package com.example.springbootblog.controller.admin;
 
-import com.example.springbootblog.common.Constants;
 import com.example.springbootblog.entity.Blog;
 import com.example.springbootblog.service.BlogService;
 import com.example.springbootblog.service.CategoryService;
@@ -9,6 +8,7 @@ import com.example.springbootblog.utils.PageQueryUtil;
 import com.example.springbootblog.utils.Result;
 import com.example.springbootblog.utils.ResultGenerator;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
@@ -32,6 +32,8 @@ import java.util.Random;
 @RequestMapping("/admin")
 public class BlogController {
 
+    @Value("${upload.file.path}")
+    public String uploadPath;
     @Resource
     private BlogService blogService;
 
@@ -41,7 +43,7 @@ public class BlogController {
     @GetMapping("/blogs")
     public String list(HttpServletRequest request) {
         request.setAttribute("path", "blogs");
-        return "/admin/blog";
+        return "admin/blog";
     }
 
     @GetMapping("/blogs/list")
@@ -77,7 +79,7 @@ public class BlogController {
     @PostMapping("/blogs/md/uploadfile")
     public void uploadFileByEditorMd(HttpServletRequest request, HttpServletResponse response,
                                      @RequestParam(name = "editormd-image-file", required = true) MultipartFile multipartFile) throws IOException, URISyntaxException {
-        String FILE_UPLOAD_DIC = Constants.FILE_UPLOAD_DIC;
+        String FILE_UPLOAD_DIC = uploadPath;
         String fileName = multipartFile.getOriginalFilename();
         String suffixName = fileName.substring(fileName.lastIndexOf("."));
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd_HHmmss");

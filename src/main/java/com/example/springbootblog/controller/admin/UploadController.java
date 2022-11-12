@@ -1,9 +1,9 @@
 package com.example.springbootblog.controller.admin;
 
-import com.example.springbootblog.common.Constants;
 import com.example.springbootblog.utils.MyBlogUtils;
 import com.example.springbootblog.utils.Result;
 import com.example.springbootblog.utils.ResultGenerator;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +24,9 @@ import java.util.Random;
 @RequestMapping("/admin")
 public class UploadController {
 
+    @Value("${upload.file.path}")
+    public String uploadPath;
+
     @PostMapping("/upload/file")
     @ResponseBody
     public Result upload(HttpServletRequest request, @RequestParam("file") MultipartFile multipartFile) throws URISyntaxException {
@@ -34,8 +37,8 @@ public class UploadController {
         StringBuilder tempName = new StringBuilder();
         tempName.append(sdf.format(new Date())).append(r.nextInt(100)).append(suffix);
         String newFileName = tempName.toString();
-        File fileDirectory = new File(Constants.FILE_UPLOAD_DIC);
-        File destFile = new File(Constants.FILE_UPLOAD_DIC + newFileName);
+        File fileDirectory = new File(uploadPath);
+        File destFile = new File(uploadPath + newFileName);
         try {
             if (!fileDirectory.exists()) {
                 if (!fileDirectory.mkdir()) {
