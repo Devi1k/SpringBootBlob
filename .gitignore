@@ -31,3 +31,5 @@ build/
 
 ### VS Code ###
 .vscode/
+src/main/resources/emmazhang.fun.pfx
+src/main/resources/keystorePass.txt
