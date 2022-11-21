@@ -12,8 +12,6 @@ logging:
   file:
     path: ./logs
 server:
-  servlet:
-    context-path: /
   port: 8080
   address: localhost
 upload:

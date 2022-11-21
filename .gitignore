@@ -33,3 +33,4 @@ build/
 .vscode/
 src/main/resources/emmazhang.fun.pfx
 src/main/resources/keystorePass.txt
+/src/main/resources/emmazhang.fun.jks

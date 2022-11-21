@@ -35,7 +35,7 @@ public class CommentServiceImpl implements CommentService {
 
     @Override
     public Boolean checkDone(Integer[] ids) {
-        return commentMapper.checkDone(ids) > 1;
+        return commentMapper.checkDone(ids) > 0;
     }
 
     @Override
